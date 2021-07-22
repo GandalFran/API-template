@@ -1,4 +1,14 @@
 {
-   "param1":14,
-   "param2": "example"
+  "floatparam": 7,
+  "intparam": 10,
+  "strparam": "example",
+  "dtparam": "2021-07-21T19:37:06+0000",
+  "nestedparam": {
+    "param1": 0
+  },
+  "listparam": [
+    1,
+    2,
+    3
+  ]
 }

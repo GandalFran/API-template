@@ -1,0 +1,11 @@
+{
+  "apps" : [
+    {
+      "name": "{{cookiecutter.api_title}}",
+      "interpreter": "/bin/bash",
+      "script": "launch.bash",
+      "out_file": "/var/log/{{cookiecutter.api_title}}.log",
+      "error_file": "/var/log/{{cookiecutter.api_title}}.err",
+    }
+  ]
+}

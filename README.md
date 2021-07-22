@@ -1,5 +1,6 @@
 # Flask-restx Python API as Package Cookie
 
+Template to create a rest API encapsulated in a Python package using Flask_restx.
 
 ## Installation
 1. install [cookiecutter](https://github.com/cookiecutter/cookiecutter) with `pip3 install cookiecutter`

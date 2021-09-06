@@ -4,7 +4,7 @@ Template to create a rest API encapsulated in a Python package using Flask_restx
 
 ## Installation
 1. install [cookiecutter](https://github.com/cookiecutter/cookiecutter) with `pip3 install cookiecutter`
-2. choose path for the API to be saved and run template generation with `cookiecutter https://github.com/marialonsogar/API-template.git`
+2. choose path for the API to be saved and run template generation with `cookiecutter https://github.com/GandalFran/API-template.git`
 3. fill properties as following
 
 ```

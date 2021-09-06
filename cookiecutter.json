@@ -1,11 +1,12 @@
 {
-    "author": "Francisco Pinto-Santos",
-    "author_github": "GandalFran",
-    "email": "franpintosantos@usal.es",
-    "organization": ["BISITE Research Group", "AIR Institute", "Francisco Pinto-Santos"],
+    "author": "Maria Alonso-Garcia",
+    "author_github": "marialonsogar",
+    "email": "marialonsogar@usal.es",
+    "organization": ["BISITE Research Group", "AIR Institute", "Maria Alonso-Garcia"],
     "package_name": "example_api",
     "api_title": "example-api",
     "api_description": "API used as an example",
     "api_version": "1.0",
-    "namespace": "example"
+    "namespace": "example",
+    "model_name": "saved_model.pkl"
 }

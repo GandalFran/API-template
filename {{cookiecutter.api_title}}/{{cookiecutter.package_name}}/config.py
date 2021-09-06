@@ -5,11 +5,13 @@
 # Author: {{cookiecutter.author}} @{{cookiecutter.author_github}} on GitHub
 
 
-import os
+class Config:
+    DEBUG = True
+    PORT = 5000
+    HOST = '0.0.0.0'
+    URL_PREFIX = '/{{cookiecutter.api_title}}/{{cookiecutter.namespace}}/v1'
 
+    CACHE_TYPE = 'simple' # to follow simple cache strategy
+    CACHE_DEFAULT_TIMEOUT = 10 * 60 # time expiration: 10 minutes
 
-# api config
-PORT = 5000
-HOST = '0.0.0.0'
-URL_PREFIX = '/{{cookiecutter.api_title}}/{{cookiecutter.namespace}}/v1'
-DEBUG_MODE = True
+    RATELIMIT_HEADERS_ENABLED = True

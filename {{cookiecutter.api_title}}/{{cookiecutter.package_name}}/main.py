@@ -10,9 +10,10 @@ from flask import Flask, Blueprint, redirect, request
 
 from {{cookiecutter.package_name}} import config
 from {{cookiecutter.package_name}}.api.v1 import api
-from {{cookiecutter.package_name}}.core import cache, limiter
+from {{cookiecutter.package_name}}.extensions import cache, limiter
 from {{cookiecutter.package_name}}.api.{{cookiecutter.namespace}}_ns import {{cookiecutter.namespace}}_ns
 
+namespaces = [ {{cookiecutter.namespace}}_ns ]
 
 app = Flask(__name__)
 
@@ -40,16 +41,13 @@ __version__ = get_version()
 __author__ = get_authors()
     
 
-namespaces = [ {{cookiecutter.namespace}}_ns ]
-
-
 @app.route('/')
 def register_redirection():
     """
     Redirects to dcoumentation page.
     """
 
-    return redirect(f'{request.url_root}/{config.URL_PREFIX}', code=302)
+    return redirect(f'{request.url_root}/{Config.URL_PREFIX}', code=302)
 
 
 def initialize_app(flask_app):
@@ -59,15 +57,19 @@ def initialize_app(flask_app):
 
     CORS(flask_app)
 
-    v1 = Blueprint('api', __name__, url_prefix=config.URL_PREFIX)
-    api.init_app(v1)
+    doc = Blueprint('api', __name__, url_prefix=Config.URL_PREFIX)
+    api.init_app(doc)
 
-    limiter.exempt(v1)
+    # register extensions
+    limiter.init_app(flask_app)
+    limiter.exempt(doc)
     cache.init_app(flask_app)
+    flask_app.register_blueprint(doc)
 
-    flask_app.register_blueprint(v1)
-    flask_app.config.from_object(config)
+    # set up config
+    flask_app.config.from_object(Config)
 
+    # register namespaces
     for ns in namespaces:
         api.add_namespace(ns)
 
@@ -76,12 +78,12 @@ def main():
     initialize_app(app)
     separator_str = ''.join(map(str, ["=" for i in range(175)]))
     print(separator_str)
-    print(f'Debug mode: {config.DEBUG_MODE}')
+    print(f'Debug mode: {Config.DEBUG_MODE}')
     print(f'Authors: {get_authors()}')
     print(f'Version: {get_version()}')
-    print(f'Base URL: http://localhost:{config.PORT}{config.URL_PREFIX}')
+    print(f'Base URL: http://localhost:{Config.PORT}{Config.URL_PREFIX}')
     print(separator_str)
-    app.run(host=config.HOST, port=config.PORT, debug=config.DEBUG_MODE)
+    app.run(host=Config.HOST, port=Config.PORT, debug=Config.DEBUG)
 
 
 

@@ -12,5 +12,17 @@ import pandas as pd
 
 class {{cookiecutter.namespace}}Model:
     
-    def predict(self, params):
-        return 1.0, 2.0
+    # CONSTRUCTOR-------------------------------------------------
+
+    def __init__(self, path='./{{cookiecutter.package_name}}/model/{{cookiecutter.model_name}}'):
+
+        try:
+            # load the model
+            self.model = joblib.load(path)
+        except:
+            raise KeyError("FAIL TO LOAD THE MODEL")
+
+    # METHODS--------------------------------------------------
+
+    def predict(self, data):
+        return self.model.predict(data)

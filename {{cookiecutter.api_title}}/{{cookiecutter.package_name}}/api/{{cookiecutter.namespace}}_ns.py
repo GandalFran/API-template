@@ -15,7 +15,7 @@ from {{cookiecutter.package_name}}.core import cache, limiter
 from {{cookiecutter.package_name}}.utils import handle400error, handle404error, handle500error
 
 from {{cookiecutter.package_name}}.model.{{cookiecutter.namespace}}_model import {{cookiecutter.namespace}}Model
-from {{cookiecutter.package_name}}.api.{{cookiecutter.namespace}}_parsers import {{cookiecutter.namespace}}_parser 
+from {{cookiecutter.package_name}}.api.{{cookiecutter.namespace}}_validator import {{cookiecutter.namespace}}_validator 
 from {{cookiecutter.package_name}}.api.{{cookiecutter.namespace}}_models import {{cookiecutter.namespace}}_input_model, {{cookiecutter.namespace}}_output_model
 
 
@@ -44,21 +44,23 @@ class {{cookiecutter.namespace}}Prediction(Resource):
 
         # retrieve arguments
         try:
-            obj = flask.request.get_json()
+            json_data = flask.request.get_json()
         except:
             return handle400error({{cookiecutter.namespace}}_ns, 'Unable to retrieve arguments from request. Please, check the swagger documentation at /v1')
 
         # check parameters
         try:
-            params = {{cookiecutter.namespace}}_parser.parse_args()
+            validated_data, errors = {{cookiecutter.namespace}}_validator(json_data)
         except:
             return handle400error(example_ns, 'Malformed request. Please, check the request at /v1')
+        if errors is not None:
+            return handle400error(irrigation_ns, errors)
 
         # build recomendation 
         try:
-            param1, param2 = model.predict(params)
+            param1, param2 = model.predict(validated_data)
         except:
-            return handle500error({{cookiecutter.namespace}}_ns)
+            return handle500error({{cookiecutter.namespace}}_ns, 'Unexpected error while predicting.')
 
         # build result
         result_prediction = {

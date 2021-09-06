@@ -13,7 +13,8 @@ from flask_limiter.util import get_remote_address
 limiter = Limiter(	
 	key_func=get_remote_address,	
 	default_limits=["1000 per hour"]
-)
+) #get_remote_address return the IP address for the current request. If IP adress not found, return 127.0.0.1 (localhost)
+
 
 cache = Cache(
 	config={

@@ -1,2 +1,2 @@
 
-Copyright (C) 2021 Francisco Pinto-Santos
+Copyright (C) 2021 Maria Alonso-Garcia
